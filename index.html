@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة استعلام التقارير</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
+        h2 { color: #1a73e8; margin-bottom: 10px; }
+        p { color: #5f6368; font-size: 14px; margin-bottom: 25px; }
+        input[type="text"] { width: 100%; padding: 14px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; text-align: center; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; outline: none; transition: 0.3s; }
+        input[type="text"]:focus { border-color: #1a73e8; }
+        button { width: 100%; background: #1a73e8; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #1557b0; }
+        #result { margin-top: 20px; font-weight: bold; font-size: 15px; }
+        .loading { color: #e67e22; }
+        .success { color: #27ae60; }
+        .error { color: #c0392b; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>نظام استعلام التقارير</h2>
+        <p>أدخل رقم الشاصي (VIN) للحصول على الفحص</p>
+        
+        <input type="text" id="vinInput" placeholder="أدخل رقم الشاصي هنا..." maxlength="17">
+        <button onclick="searchVIN()">بحث عن التقرير</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function searchVIN() {
+            var vin = document.getElementById("vinInput").value.trim();
+            var resultDiv = document.getElementById("result");
+
+            if (vin === "") {
+                resultDiv.className = "error";
+                resultDiv.innerHTML = "يرجى إدخال رقم الشاصي أولاً.";
+                return;
+            }
+
+            resultDiv.className = "loading";
+            resultDiv.innerHTML = "جاري الاتصال بالسيرفر وجلب التقرير... انتظر لحظات";
+
+            // هنا سيتم ربط رابط Google Apps Script في الخطوة القادمة
+            /*
+            fetch('رابط_جوجل_سكربت_هنا?vin=' + vin)
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    resultDiv.className = "success";
+                    resultDiv.innerHTML = "<a href='" + data.url + "' target='_blank'>اضغط هنا لعرض التقرير</a>";
+                } else {
+                    resultDiv.className = "error";
+                    resultDiv.innerHTML = "عذراً، لم يتم العثور على تقرير لهذا الشاصي.";
+                }
+            })
+            .catch(error => {
+                resultDiv.className = "error";
+                resultDiv.innerHTML = "حدث خطأ أثناء الاتصال بالسيرفر.";
+            });
+            */
+        }
+    </script>
+
+</body>
+</html>
